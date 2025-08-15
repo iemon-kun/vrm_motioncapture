@@ -1,0 +1,20 @@
+{
+  "name": "VRM MotionCapture Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "forwardPorts": [8800],
+  "postCreateCommand": "echo 'Dev Container is ready! Run the server and start developing.'"
+}
