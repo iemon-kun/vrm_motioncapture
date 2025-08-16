@@ -1,24 +1,8 @@
 import threading
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from backend.api import pipelines, record, replay, receiver
-from backend.pipeline import ProcessingPipeline
-
-# --- Pipeline Singleton ---
-# In a real app, this config would be loaded from the DB
-default_config = {
-    "camera_index": 0,
-    "fps": 30,
-    "host": "127.0.0.1",
-    "port": 39539,
-    "features": {
-        "pose": True,
-        "hands": True,
-        "face": True,
-        "shrug": True,
-        "gaze": True,
-    }
-}
-main_pipeline = ProcessingPipeline(config=default_config)
+from backend.state import main_pipeline
 
 
 # --- FastAPI App ---
@@ -27,6 +11,9 @@ app = FastAPI(
     description="A server for motion capture using VRM, OSC, and VMC protocols.",
     version="0.1.0",
 )
+
+# Serve the simple frontend for manual testing/debugging
+app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="frontend")
 
 @app.on_event("startup")
 def startup_event():

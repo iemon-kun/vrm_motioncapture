@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from backend.main import main_pipeline
+from backend.state import main_pipeline
 
 router = APIRouter(
     prefix="/api",

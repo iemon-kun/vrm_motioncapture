@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VRM MotionCapture Frontend</title>
+</head>
+<body>
+  <h1>VRM MotionCapture Frontend</h1>
+  <button id="check">Check Server Status</button>
+  <pre id="result"></pre>
+  <script>
+    document.getElementById('check').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/')
+        const data = await res.json()
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2)
+      } catch (err) {
+        document.getElementById('result').textContent = 'Error: ' + err
+      }
+    })
+  </script>
+</body>
+</html>
