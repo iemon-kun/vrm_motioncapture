@@ -1,14 +1,10 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from backend.net.iphone_ps_server import PerfectSyncReceiver
+from backend.ps_receiver import ps_receiver_instance
 
 router = APIRouter(
     prefix="/ws",
     tags=["Receivers"],
 )
-
-# This is a simple way to have a shared instance of the receiver.
-# For a multi-worker setup, a more robust state management (e.g., Redis) would be needed.
-ps_receiver_instance = PerfectSyncReceiver()
 
 @router.websocket("/ps_receiver")
 async def websocket_perfect_sync_endpoint(websocket: WebSocket):

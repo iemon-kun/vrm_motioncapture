@@ -15,7 +15,7 @@ from backend.svc.recorder import Recorder
 from backend.svc.replay import Replayer
 import cv2
 import numpy as np
-from backend.api.receiver import ps_receiver_instance
+from backend.ps_receiver import ps_receiver_instance
 
 # PerfectSyncReceiver is handled by the WebSocket endpoint, but the pipeline might need to access its data.
 
@@ -113,6 +113,7 @@ class ProcessingPipeline:
         cap = cv2.VideoCapture(self.config.get("camera_index", 0))
         if not cap.isOpened():
             print(f"Error: Cannot open camera at index {self.config.get('camera_index', 0)}.")
+            self.is_running = False
             return
 
         while self.is_running:
